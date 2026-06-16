@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="Capa padrão">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#12121c"/>
+      <stop offset="1" stop-color="#1b1030"/>
+    </linearGradient>
+    <linearGradient id="n" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#00e5ff"/>
+      <stop offset="1" stop-color="#ff3d81"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="400" fill="url(#g)"/>
+  <g transform="translate(200 200)" stroke="url(#n)" stroke-width="6" fill="none" opacity="0.9">
+    <circle r="40"/>
+    <circle r="80" opacity="0.5"/>
+    <circle r="120" opacity="0.25"/>
+  </g>
+  <g fill="url(#n)">
+    <rect x="120" y="300" width="8" height="30" rx="4"/>
+    <rect x="140" y="285" width="8" height="60" rx="4"/>
+    <rect x="160" y="270" width="8" height="90" rx="4"/>
+    <rect x="180" y="290" width="8" height="50" rx="4"/>
+    <rect x="200" y="260" width="8" height="110" rx="4"/>
+    <rect x="220" y="288" width="8" height="55" rx="4"/>
+    <rect x="240" y="275" width="8" height="80" rx="4"/>
+    <rect x="260" y="295" width="8" height="40" rx="4"/>
+  </g>
+</svg>

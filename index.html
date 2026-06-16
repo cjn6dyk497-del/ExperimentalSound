@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Produtor musical — ouça as faixas, baixe e entre em contato para colaborações e produção." />
+  <meta name="theme-color" content="#0a0a0f" />
+  <meta property="og:title" content="ExperimentaSound — Produtor Musical" />
+  <meta property="og:description" content="Ouça as faixas, baixe e entre em contato." />
+  <meta property="og:type" content="website" />
+  <title>ExperimentaSound · Produtor Musical</title>
+  <link rel="icon" href="assets/default-cover.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div class="bg-glow" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <a class="logo" href="#top">
+      <span class="logo-mark" aria-hidden="true"></span>
+      <span id="brand">ExperimentaSound</span>
+    </a>
+    <nav class="nav">
+      <a href="#tracks-section">Faixas</a>
+      <a href="#contact">Contato</a>
+      <a class="nav-cta" href="admin.html">+ Enviar música</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero">
+      <p class="eyebrow">Produtor Musical</p>
+      <h1 id="hero-name">ExperimentaSound</h1>
+      <p id="tagline" class="tagline">Produção musical · beats · mix &amp; master</p>
+      <p id="bio" class="bio"></p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#tracks-section">Ouvir faixas</a>
+        <a class="btn btn-outline" href="#contact">Trabalhe comigo</a>
+      </div>
+      <div id="socials" class="socials"></div>
+    </section>
+
+    <!-- TRACKS -->
+    <section id="tracks-section" class="section">
+      <div class="section-head">
+        <h2>Faixas</h2>
+        <span id="track-count" class="muted"></span>
+      </div>
+      <div id="tracks" class="track-grid"></div>
+      <div id="empty-state" class="empty" hidden>
+        <p>Nenhuma faixa publicada ainda.</p>
+        <a class="btn btn-primary" href="admin.html">Enviar minha primeira faixa</a>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section contact">
+      <div class="section-head"><h2>Contato &amp; contratação</h2></div>
+      <div class="contact-grid">
+        <form id="contact-form" class="contact-form" novalidate>
+          <div class="field">
+            <label for="cf-name">Nome</label>
+            <input id="cf-name" name="name" type="text" required placeholder="Seu nome" />
+          </div>
+          <div class="field">
+            <label for="cf-email">E-mail</label>
+            <input id="cf-email" name="email" type="email" required placeholder="voce@email.com" />
+          </div>
+          <div class="field">
+            <label for="cf-message">Mensagem</label>
+            <textarea id="cf-message" name="message" rows="4" required placeholder="Conte sobre o projeto, prazo e referências…"></textarea>
+          </div>
+          <button class="btn btn-primary" type="submit">Enviar mensagem</button>
+          <p id="contact-status" class="status" role="status" aria-live="polite"></p>
+        </form>
+        <aside class="contact-aside">
+          <p>Prefere e-mail direto?</p>
+          <a id="contact-email" class="contact-email" href="#">contato</a>
+          <div id="socials-foot" class="socials"></div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <span>© <span id="year"></span> <span id="brand-foot">ExperimentaSound</span></span>
+    <a href="admin.html">Painel de envio</a>
+  </footer>
+
+  <!-- PLAYER -->
+  <div id="player" class="player" role="region" aria-label="Player de áudio">
+    <div class="pl-track">
+      <img id="pl-cover" class="pl-cover" src="assets/default-cover.svg" alt="" />
+      <div class="pl-info">
+        <span id="pl-title" class="pl-title">Selecione uma faixa</span>
+        <span id="pl-artist" class="pl-artist"></span>
+      </div>
+    </div>
+
+    <div class="pl-controls">
+      <div class="pl-buttons">
+        <button id="pl-prev" class="pl-btn" aria-label="Anterior"></button>
+        <button id="pl-play" class="pl-btn pl-play" aria-label="Tocar"></button>
+        <button id="pl-next" class="pl-btn" aria-label="Próxima"></button>
+      </div>
+      <div class="pl-seek-wrap">
+        <span id="pl-current" class="pl-time">0:00</span>
+        <input id="pl-seek" class="range" type="range" min="0" max="0" value="0" step="1" aria-label="Posição da faixa" />
+        <span id="pl-duration" class="pl-time">0:00</span>
+      </div>
+    </div>
+
+    <div class="pl-right">
+      <button id="pl-volume-btn" class="pl-btn pl-vol-btn" aria-label="Mudo"></button>
+      <input id="pl-volume" class="range range-vol" type="range" min="0" max="1" value="1" step="0.01" aria-label="Volume" />
+      <a id="pl-download" class="pl-btn pl-dl" hidden aria-label="Baixar faixa"></a>
+    </div>
+
+    <audio id="audio" preload="metadata"></audio>
+  </div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

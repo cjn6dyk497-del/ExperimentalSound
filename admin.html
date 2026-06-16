@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Enviar música · ExperimentaSound</title>
+  <link rel="icon" href="assets/default-cover.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/admin.css" />
+</head>
+<body class="admin">
+  <div class="bg-glow" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <a class="logo" href="index.html">
+      <span class="logo-mark" aria-hidden="true"></span>
+      <span id="brand">ExperimentaSound</span>
+    </a>
+    <nav class="nav">
+      <a href="index.html">← Voltar ao site</a>
+    </nav>
+  </header>
+
+  <main class="admin-main">
+    <h1>Enviar música</h1>
+    <p class="lead">
+      Arraste um arquivo de áudio, preencha os dados e escolha:
+      <strong>salvar só neste navegador</strong> (rápido, ideal para testar) ou
+      <strong>publicar no site</strong> para que toque para todos os visitantes.
+    </p>
+
+    <!-- UPLOAD -->
+    <section class="panel">
+      <form id="upload-form">
+        <div id="dropzone" class="dropzone" tabindex="0" role="button" aria-label="Selecionar arquivo de áudio">
+          <div class="dz-inner">
+            <strong>Arraste o áudio aqui</strong>
+            <span class="muted">ou clique para escolher (MP3, WAV, OGG…)</span>
+            <span id="audio-name" class="audio-name"></span>
+          </div>
+          <input id="f-audio" type="file" accept="audio/*" hidden />
+        </div>
+
+        <div class="form-row">
+          <div class="cover-pick">
+            <div id="cover-preview" class="cover-preview" aria-hidden="true"></div>
+            <label class="file-label">
+              Capa (opcional)
+              <input id="f-cover" type="file" accept="image/*" />
+            </label>
+          </div>
+
+          <div class="form-fields">
+            <div class="field">
+              <label for="f-title">Título</label>
+              <input id="f-title" type="text" placeholder="Nome da faixa" />
+            </div>
+            <div class="field-2">
+              <div class="field">
+                <label for="f-artist">Artista</label>
+                <input id="f-artist" type="text" placeholder="Seu nome artístico" />
+              </div>
+              <div class="field">
+                <label for="f-genre">Gênero</label>
+                <input id="f-genre" type="text" placeholder="House, Trap, Lo-fi…" />
+              </div>
+            </div>
+            <label class="check">
+              <input id="f-downloadable" type="checkbox" checked />
+              Permitir que visitantes baixem esta faixa
+            </label>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button id="save-local" type="button" class="btn btn-outline"></button>
+          <button id="publish-gh" type="button" class="btn btn-primary">Publicar no site</button>
+        </div>
+        <p id="upload-status" class="status" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+
+    <!-- LOCAL LIBRARY -->
+    <section class="panel">
+      <h2>Faixas salvas neste navegador</h2>
+      <p class="muted small">Ficam só neste dispositivo. Clique em <em>Publicar</em> para colocá-las no ar para todos.</p>
+      <ul id="local-list" class="local-list"></ul>
+      <p id="local-empty" class="muted" hidden>Nenhuma faixa local ainda.</p>
+    </section>
+
+    <!-- GITHUB CONFIG -->
+    <section class="panel" id="config">
+      <h2>Publicação (GitHub)</h2>
+      <div class="gh-state">
+        <span id="gh-state-dot" class="dot off"></span>
+        <span id="gh-state-text">Publicação não configurada (modo local disponível)</span>
+      </div>
+      <p class="muted small">
+        Para publicar, é preciso um <strong>token fino (fine-grained)</strong> do GitHub com permissão
+        <em>Contents: Read &amp; write</em> neste repositório. O token fica salvo
+        <strong>somente neste navegador</strong> (localStorage) — nunca é enviado para outro lugar além da API do GitHub.
+        <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">Criar token →</a>
+      </p>
+
+      <div class="gh-grid">
+        <div class="field"><label for="gh-owner">Owner (usuário/org)</label><input id="gh-owner" type="text" placeholder="seu-usuario" /></div>
+        <div class="field"><label for="gh-repo">Repositório</label><input id="gh-repo" type="text" placeholder="experimentasound" /></div>
+        <div class="field"><label for="gh-branch">Branch de deploy</label><input id="gh-branch" type="text" placeholder="main" /></div>
+        <div class="field field-wide"><label for="gh-token">Token</label><input id="gh-token" type="password" placeholder="github_pat_…" autocomplete="off" /></div>
+      </div>
+      <div class="actions">
+        <button id="gh-verify" type="button" class="btn btn-outline">Verificar acesso</button>
+        <button id="gh-save" type="button" class="btn btn-outline">Salvar</button>
+        <button id="gh-clear" type="button" class="btn btn-ghost danger">Remover token</button>
+      </div>
+      <p id="gh-status" class="status" role="status" aria-live="polite"></p>
+    </section>
+
+    <p class="note muted small">
+      Dica: arquivos muito grandes (WAV longos) deixam o repositório pesado e a API do GitHub tem limite por arquivo.
+      Para a web, prefira <strong>MP3 320 kbps</strong>. Mantenha os masters originais à parte.
+    </p>
+  </main>
+
+  <script type="module" src="js/admin.js"></script>
+</body>
+</html>

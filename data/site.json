@@ -1,0 +1,13 @@
+{
+  "brand": "ExperimentaSound",
+  "tagline": "Produção musical · beats · mix & master",
+  "bio": "Produtor musical. Ouça os trabalhos abaixo e fale comigo para colaborações, beats exclusivos e produção sob medida.",
+  "email": "ghha.de.paula@gmail.com",
+  "formspreeId": "",
+  "socials": [
+    { "label": "Instagram", "url": "https://instagram.com/", "icon": "instagram" },
+    { "label": "SoundCloud", "url": "https://soundcloud.com/", "icon": "soundcloud" },
+    { "label": "Spotify", "url": "https://open.spotify.com/", "icon": "spotify" },
+    { "label": "YouTube", "url": "https://youtube.com/", "icon": "youtube" }
+  ]
+}
