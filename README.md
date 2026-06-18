@@ -1,4 +1,4 @@
-# ExperimentaSound 🎧
+# Experimental Sound 🎧
 
 Site de produtor musical, **estático**, hospedado no **GitHub Pages** com **deploy automático via GitHub Actions**.
 

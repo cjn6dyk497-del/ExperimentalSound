@@ -32,12 +32,18 @@ function renderSite(site) {
   setHTML('socials', socialsHTML);
   setHTML('socials-foot', socialsHTML);
 
-  // Contact
+  // Contact: only show the direct-email block when an address is configured.
   const emailLink = document.getElementById('contact-email');
-  if (emailLink && site.email) {
-    emailLink.href = `mailto:${site.email}`;
-    emailLink.textContent = site.email;
+  const emailLabel = document.getElementById('contact-email-label');
+  const hasEmail = Boolean(site.email);
+  if (emailLink) {
+    emailLink.hidden = !hasEmail;
+    if (hasEmail) {
+      emailLink.href = `mailto:${site.email}`;
+      emailLink.textContent = site.email;
+    }
   }
+  if (emailLabel) emailLabel.hidden = !hasEmail;
   setupContactForm(site);
 }
 
@@ -57,12 +63,15 @@ function setupContactForm(site) {
         if (res.ok) { status.textContent = 'Mensagem enviada! Obrigado.'; form.reset(); }
         else status.textContent = 'Não foi possível enviar. Tente pelo e-mail.';
       } catch (_) { status.textContent = 'Falha de rede. Tente pelo e-mail.'; }
-    } else {
+    } else if (site.email) {
       // No Formspree configured: fall back to a prefilled e-mail.
       const subject = encodeURIComponent(`Contato pelo site — ${data.get('name') || ''}`);
       const body = encodeURIComponent(`${data.get('message') || ''}\n\nDe: ${data.get('name') || ''} <${data.get('email') || ''}>`);
       window.location.href = `mailto:${site.email}?subject=${subject}&body=${body}`;
       status.textContent = 'Abrindo seu aplicativo de e-mail…';
+    } else {
+      // Neither Formspree nor a contact e-mail configured yet.
+      status.textContent = 'Canal de contato em configuração. Use as redes sociais por enquanto.';
     }
   });
 }
@@ -121,7 +130,7 @@ function highlightCurrent(i) {
 
 async function init() {
   const [site, tracksData, localRecords] = await Promise.all([
-    loadJSON('data/site.json', { brand: 'ExperimentaSound', socials: [], tagline: '', bio: '', email: '' }),
+    loadJSON('data/site.json', { brand: 'Experimental Sound', socials: [], tagline: '', bio: '', email: '' }),
     loadJSON('data/tracks.json', { tracks: [] }),
     getLocalTracks().catch(() => [])
   ]);
