@@ -64,6 +64,11 @@ img { display: block; max-width: 100%; }
   border: 1px solid var(--neon); box-shadow: var(--shadow-neon);
 }
 .nav-cta:hover { background: rgba(0, 229, 255, .1); }
+.nav-studio {
+  color: var(--text) !important; display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 14px; border-radius: 999px; border: 1px solid var(--border);
+}
+.nav-studio:hover { color: var(--neon) !important; border-color: var(--neon); }
 
 /* hero */
 .hero {
@@ -223,7 +228,10 @@ textarea { resize: vertical; }
   .contact-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 720px) {
-  .nav a:not(.nav-cta) { display: none; }
+  .nav a:not(.nav-cta):not(.nav-studio) { display: none; }
+  .nav { gap: 8px; }
+  .nav-studio, .nav-cta { padding: 7px 12px; font-size: .9rem; }
+  .site-header { padding-left: 14px; padding-right: 14px; }
   .player { grid-template-columns: 1fr auto; grid-template-areas: 'track right' 'controls controls'; gap: 8px 12px; height: auto; padding: 10px clamp(14px, 4vw, 40px); }
   .pl-track { grid-area: track; }
   .pl-right { grid-area: right; }
