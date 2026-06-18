@@ -9,6 +9,7 @@ Site de produtor musical, **estático**, hospedado no **GitHub Pages** com **dep
 - ⬆️ **Painel de envio no navegador** (`admin.html`) com dois modos:
   - **Salvar no navegador** — guarda a faixa localmente (IndexedDB), toca na hora **só neste dispositivo**. Ótimo para testar.
   - **Publicar no site** — envia o áudio para o repositório pela **API do GitHub** e atualiza a lista; o push dispara o deploy e a faixa fica **pública para todos**.
+- 🎛️ **Estúdio** (`studio.html`) — área de trabalho **privada** para projetos em andamento: gerenciador de projetos com status, **metrônomo**, editor de **letra com cifras** e **bloco de notas**.
 
 > **Por que dois modos?** O GitHub Pages é hospedagem estática (sem servidor), então não há para onde "subir" um arquivo permanentemente a partir de um formulário comum. A publicação real é feita gravando o arquivo no próprio repositório via API do GitHub — sem precisar de backend externo.
 
@@ -65,6 +66,24 @@ O deploy também pode ser disparado manualmente em **Actions → Deploy to GitHu
 
 ---
 
+## 🎛️ Estúdio (área de trabalho privada)
+
+Acesse por `studio.html` (links no rodapé do site e no painel de envio). É uma
+ferramenta de trabalho para o produtor — **não aparece para visitantes**.
+
+- **Projetos** — crie quantos quiser, com **status** (Ideia → Em progresso → Mixagem → Finalizado), **BPM**, **tom** e **gênero**. A lista mostra os mais recentes primeiro e tem busca.
+- **Letra & Cifras** — escreva a letra com cifras inline no formato `[Am]`, ex.: `[Am]Tô [C]aqui`. O botão **Pré-visualizar** mostra as cifras alinhadas **acima** de cada sílaba (estilo ChordPro).
+- **Notas** — bloco livre por projeto (ideias de arranjo, referências, tarefas, samples…).
+- **Metrônomo** — Web Audio com BPM (slider, +/−, **tap tempo**), compasso (2/4, 3/4, 4/4, 6/8) e acento no tempo 1. O botão 🎵▶ ao lado do BPM do projeto carrega o tempo direto no metrônomo.
+- **Salvamento automático** — tudo é salvo enquanto você digita.
+
+> 🔒 **Privacidade e backup.** Os dados do Estúdio ficam **somente neste navegador**
+> (IndexedDB) — não vão para o repositório nem para a internet. Por isso:
+> - Há um **PIN opcional** (botão *PIN*) para esconder a área de quem usar o seu computador. É uma proteção **casual** (os dados não são criptografados) — anote o PIN, pois não há recuperação.
+> - Use **Exportar backup** de vez em quando para baixar um `.json` com todos os projetos, e **Importar** para restaurar (ou levar para outro dispositivo). Limpar os dados do navegador apaga os projetos.
+
+---
+
 ## ⚙️ Personalizar
 
 Edite **`data/site.json`**:
@@ -93,9 +112,11 @@ Edite **`data/site.json`**:
 ```
 index.html          Site público
 admin.html          Painel de envio
+studio.html         Estúdio (área de trabalho privada)
 404.html
-css/                styles.css (tema) + admin.css
+css/                styles.css (tema) + admin.css + studio.css
 js/                 app.js, admin.js, player.js, store.js, github.js, icons.js
+                    studio.js, studio-store.js, metronome.js
 data/site.json      Configuração do site (nome, bio, redes, contato)
 data/tracks.json    Lista de faixas publicadas
 audio/  covers/      Arquivos de áudio e capas

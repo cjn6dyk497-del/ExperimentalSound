@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Estúdio · Experimental Sound</title>
+  <link rel="icon" href="assets/default-cover.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/studio.css" />
+</head>
+<body class="studio">
+  <div class="bg-glow" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <a class="logo" href="index.html">
+      <span class="logo-mark" aria-hidden="true"></span>
+      <span>Experimental Sound</span>
+    </a>
+    <nav class="nav">
+      <a href="index.html">← Site</a>
+      <a href="admin.html">Enviar música</a>
+    </nav>
+  </header>
+
+  <!-- LOCK SCREEN (only shown when a PIN is set) -->
+  <div id="lock" class="lock" hidden>
+    <form id="lock-form" class="lock-card">
+      <h1>🔒 Estúdio</h1>
+      <p class="muted">Área privada. Digite seu PIN para entrar.</p>
+      <input id="lock-pin" type="password" inputmode="numeric" autocomplete="off" placeholder="PIN" aria-label="PIN" />
+      <button class="btn btn-primary" type="submit">Entrar</button>
+      <p id="lock-error" class="status err" role="alert"></p>
+    </form>
+  </div>
+
+  <!-- WORKSPACE -->
+  <div id="workspace" hidden>
+    <div class="ws-topbar">
+      <h1>Estúdio</h1>
+      <div class="ws-top-actions">
+        <button id="open-metro" class="btn btn-outline">🎵 Metrônomo</button>
+        <button id="export" class="btn btn-ghost">Exportar backup</button>
+        <button id="import-btn" class="btn btn-ghost">Importar</button>
+        <button id="pin-btn" class="btn btn-ghost">PIN</button>
+        <input id="import-file" class="hidden-file" type="file" accept="application/json,.json" />
+      </div>
+    </div>
+
+    <div class="ws-grid">
+      <aside class="ws-side">
+        <button id="new-project" class="btn btn-primary">+ Novo projeto</button>
+        <input id="search" class="search" type="search" placeholder="Buscar projeto…" aria-label="Buscar projeto" />
+        <ul id="project-list" class="project-list"></ul>
+        <p id="projects-empty" class="muted small" hidden>Nenhum projeto ainda. Crie o primeiro acima.</p>
+      </aside>
+
+      <main class="ws-main">
+        <div id="editor-empty" class="ws-empty">
+          <p>Selecione um projeto na lista ou crie um novo para começar.</p>
+        </div>
+
+        <div id="editor" hidden>
+          <input id="p-title" class="p-title-input" type="text" placeholder="Título do projeto" aria-label="Título" />
+
+          <div class="p-meta">
+            <div class="field">
+              <label for="p-status">Status</label>
+              <select id="p-status">
+                <option value="ideia">Ideia</option>
+                <option value="progresso">Em progresso</option>
+                <option value="mixagem">Mixagem</option>
+                <option value="finalizado">Finalizado</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="p-bpm">BPM</label>
+              <div class="bpm-field">
+                <input id="p-bpm" type="number" min="20" max="300" step="1" placeholder="120" />
+                <button id="bpm-to-metro" type="button" class="btn btn-outline mini" title="Usar este BPM no metrônomo" aria-label="Usar este BPM no metrônomo">🎵 ▶</button>
+              </div>
+            </div>
+            <div class="field">
+              <label for="p-key">Tom</label>
+              <input id="p-key" type="text" placeholder="Am, C#, F…" />
+            </div>
+            <div class="field">
+              <label for="p-genre">Gênero</label>
+              <input id="p-genre" type="text" placeholder="House, Trap…" />
+            </div>
+          </div>
+
+          <div class="tabs" role="tablist">
+            <button class="tab active" data-tab="lyrics" role="tab">Letra &amp; Cifras</button>
+            <button class="tab" data-tab="notes" role="tab">Notas</button>
+          </div>
+
+          <section class="tab-panel" data-panel="lyrics">
+            <div class="panel-head">
+              <p class="hint">Cifras inline: escreva <code>[Am]</code> antes da sílaba. Ex.: <code>[Am]Tô [C]aqui</code></p>
+              <button id="toggle-preview" type="button" class="btn btn-ghost mini">Pré-visualizar</button>
+            </div>
+            <textarea id="p-lyrics" class="editor-area mono" placeholder="[Am]Escreva a letra aqui…&#10;Com as cifras entre colchetes."></textarea>
+            <div id="lyrics-preview" class="lyrics-preview" hidden></div>
+          </section>
+
+          <section class="tab-panel" data-panel="notes" hidden>
+            <p class="hint">Ideias de arranjo, referências, lista de tarefas, samples usados…</p>
+            <textarea id="p-notes" class="editor-area" placeholder="Anotações do projeto…"></textarea>
+          </section>
+
+          <div class="editor-foot">
+            <span id="save-state" class="save-state">salvo</span>
+            <span id="p-dates" class="save-state"></span>
+            <span class="spacer"></span>
+            <button id="delete-project" type="button" class="btn btn-ghost danger">Excluir projeto</button>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- METRONOME -->
+  <button id="metro-fab" class="metro-fab" hidden aria-label="Abrir metrônomo">🎵</button>
+  <section id="metronome" class="metro" hidden aria-label="Metrônomo">
+    <div class="metro-head">
+      <strong>Metrônomo</strong>
+      <button id="metro-min" class="icon-btn" aria-label="Minimizar">×</button>
+    </div>
+    <div class="metro-bpm">
+      <button id="bpm-down" class="bpm-step" aria-label="Diminuir BPM">−</button>
+      <div class="bpm-display"><span id="bpm-val">120</span><small>BPM</small></div>
+      <button id="bpm-up" class="bpm-step" aria-label="Aumentar BPM">+</button>
+    </div>
+    <input id="bpm-range" class="range" type="range" min="40" max="240" value="120" aria-label="BPM" />
+    <div id="beat-dots" class="beat-dots"></div>
+    <div class="metro-row">
+      <label for="time-sig">Compasso
+        <select id="time-sig">
+          <option value="2">2/4</option>
+          <option value="3">3/4</option>
+          <option value="4" selected>4/4</option>
+          <option value="6">6/8</option>
+        </select>
+      </label>
+      <label class="check"><input id="accent" type="checkbox" checked /> Acento no 1</label>
+    </div>
+    <div class="metro-actions">
+      <button id="metro-toggle" class="btn btn-primary">Iniciar</button>
+      <button id="tap" class="btn btn-outline">Tap</button>
+    </div>
+  </section>
+
+  <script type="module" src="js/studio.js"></script>
+</body>
+</html>
